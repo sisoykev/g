@@ -2,39 +2,85 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Carta</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Juego</title>
+
 <style>
-    body {
-        background: #ffe6e6;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-    }
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(180deg, #ffd6dc, #fff);
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-    .contenedor {
-        perspective: 1000px;
-    }
+#corazon {
+    font-size: 60px;
+    position: absolute;
+    cursor: pointer;
+    transition: top 0.3s, left 0.3s;
+}
 
-    .carta {
-        width: 220px;
-        height: 150px;
-        position: relative;
-        cursor: pointer;
-        transform-style: preserve-3d;
-        transition: transform 0.8s;
-    }
+#contador {
+    position: fixed;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    color: #b3003c;
+    font-weight: bold;
+}
 
-    .carta.abierta {
-        transform: rotateX(180deg);
-    }
+#mensajeFinal {
+    display: none;
+    font-size: 28px;
+    color: #b3003c;
+    text-align: center;
+    font-weight: bold;
+}
+</style>
+</head>
 
-    .frente, .interior {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
+<body>
+
+<div id="contador">Corazones: 0 / 5</div>
+<div id="corazon">❤️</div>
+<div id="mensajeFinal">Te amo mucho gorda ❤️</div>
+
+<script>
+let puntos = 0;
+const corazon = document.getElementById("corazon");
+const contador = document.getElementById("contador");
+const mensajeFinal = document.getElementById("mensajeFinal");
+
+function moverCorazon() {
+    const ancho = window.innerWidth - 80;
+    const alto = window.innerHeight - 80;
+    corazon.style.left = Math.random() * ancho + "px";
+    corazon.style.top = Math.random() * alto + "px";
+}
+
+corazon.addEventListener("click", () => {
+    puntos++;
+    contador.textContent = "Corazones: " + puntos + " / 5";
+
+    if (puntos >= 5) {
+        corazon.style.display = "none";
+        contador.style.display = "none";
+        mensajeFinal.style.display = "block";
+    } else {
+        moverCorazon();
+    }
+});
+
+moverCorazon();
+</script>
+
+</body>
+</html>        backface-visibility: hidden;
         border-radius: 10px;
         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
